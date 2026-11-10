@@ -3,14 +3,15 @@ const question = document.querySelector(".question");
 const gif = document.querySelector(".gif");
 const yesBtn = document.querySelector(".yes-btn");
 const noBtn = document.querySelector(".no-btn");
+const body = document.body;
 
 yesBtn.addEventListener("click", () => {
-  question.innerHTML = "Yay, thank you! 💞️🙈️";
+  question.innerHTML = "Yay, thank you! 💞️💖";
   gif.src = "https://media.giphy.com/media/jRkaiw4ZUSHeuv1wBU/giphy.gif";
-  gif.style.transform = "scale(1.03)";
+  gif.style.transform = "scale(1.05)";
   noBtn.style.display = "none";
-  wrapper.style.boxShadow = "0 24px 60px rgba(216, 27, 96, 0.35)";
-  wrapper.style.borderColor = "rgba(240, 98, 146, 0.5)";
+  body.classList.add("celebrating");
+  wrapper.classList.add("celebrate");
 });
 
 noBtn.addEventListener("mouseover", () => {
