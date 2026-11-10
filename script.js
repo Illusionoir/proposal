@@ -5,20 +5,28 @@ const yesBtn = document.querySelector(".yes-btn");
 const noBtn = document.querySelector(".no-btn");
 
 yesBtn.addEventListener("click", () => {
-  question.innerHTML = "Yay, Thank you!💞️🙈️";
-  gif.src =
-    "https://media.giphy.com/media/jRkaiw4ZUSHeuv1wBU/giphy.gif";
+  question.innerHTML = "Yay, thank you! 💞️🙈️";
+  gif.src = "https://media.giphy.com/media/jRkaiw4ZUSHeuv1wBU/giphy.gif";
+  gif.style.transform = "scale(1.03)";
+  noBtn.style.display = "none";
+  wrapper.style.boxShadow = "0 24px 60px rgba(216, 27, 96, 0.35)";
+  wrapper.style.borderColor = "rgba(240, 98, 146, 0.5)";
 });
 
 noBtn.addEventListener("mouseover", () => {
   const noBtnRect = noBtn.getBoundingClientRect();
-  const maxX = window.innerWidth - noBtnRect.width;
-  const maxY = window.innerHeight - noBtnRect.height;
+  const maxX = Math.max(window.innerWidth - noBtnRect.width - 24, 12);
+  const maxY = Math.max(window.innerHeight - noBtnRect.height - 24, 12);
 
   const randomX = Math.floor(Math.random() * maxX);
   const randomY = Math.floor(Math.random() * maxY);
 
+  noBtn.style.position = "fixed";
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
+  noBtn.style.transform = "none";
 });
 
+noBtn.addEventListener("click", () => {
+  noBtn.style.transform = "scale(0.95)";
+});
