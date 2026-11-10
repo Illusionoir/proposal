@@ -6,9 +6,6 @@ const noBtn = document.querySelector(".no-btn");
 const response = document.querySelector(".response");
 
 function moveNoButton(event) {
-  // Keep the playful dodge for mouse users; on touch screens the button stays tappable.
-  if (event.pointerType && event.pointerType !== "mouse") return;
-
   const buttonRect = noBtn.getBoundingClientRect();
   const margin = 12;
   const maxX = Math.max(margin, window.innerWidth - buttonRect.width - margin);
@@ -18,7 +15,7 @@ function moveNoButton(event) {
   let x;
   let y;
 
-  // Try a few positions away from the pointer so it doesn't jump straight under it.
+  // Choose a position away from the touch or pointer when possible.
   for (let attempt = 0; attempt < 12; attempt += 1) {
     x = margin + Math.random() * Math.max(0, maxX - margin);
     y = margin + Math.random() * Math.max(0, maxY - margin);
@@ -42,7 +39,12 @@ yesBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-noBtn.addEventListener("pointerenter", moveNoButton);
+// Move before the browser synthesizes a click, so touch users can still tap Yes.
+noBtn.addEventListener("pointerdown", moveNoButton);
+noBtn.addEventListener("pointerenter", (event) => {
+  // pointerenter is useful for mouse/pen hover; touch movement is handled on pointerdown.
+  if (event.pointerType !== "touch") moveNoButton(event);
+});
 noBtn.addEventListener("click", () => {
   response.textContent = "Aww, no worries—I'll keep sending you love anyway! 💗";
 });
