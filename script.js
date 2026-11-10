@@ -33,12 +33,13 @@ function moveNoButton(event) {
 }
 
 yesBtn.addEventListener("click", () => {
+  // Hide the entire proposal section so neither answer button can remain on the note.
   proposal.hidden = true;
   thankYou.hidden = false;
   wrapper.classList.add("celebrate");
   document.body.classList.add("celebrating");
   document.title = "A Happy Little Yes 💖";
-  wrapper.scrollIntoView({ behavior: "smooth", block: "center" });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 noBtn.addEventListener("pointerenter", moveNoButton);

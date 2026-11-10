@@ -177,11 +177,16 @@ button:focus-visible {
 }
 
 .thank-you-message {
-  max-width: 410px;
-  margin: 0 auto 20px;
-  font-size: clamp(1rem, 3.8vw, 1.15rem);
-  line-height: 1.75;
+  max-width: 440px;
+  margin: 0 auto 22px;
+  font-size: clamp(1rem, 3.8vw, 1.12rem);
+  line-height: 1.8;
   font-weight: 600;
+  text-align: left;
+}
+
+.thank-you-message p + p {
+  margin-top: 14px;
 }
 
 .thank-you-gif {
