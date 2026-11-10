@@ -1,33 +1,57 @@
 const wrapper = document.querySelector(".wrapper");
-const question = document.querySelector(".question");
-const gif = document.querySelector(".gif");
+const proposal = document.querySelector(".proposal-content");
+const thankYou = document.querySelector(".thank-you");
 const yesBtn = document.querySelector(".yes-btn");
 const noBtn = document.querySelector(".no-btn");
-const body = document.body;
+const response = document.querySelector(".response");
+
+function moveNoButton(event) {
+  // Keep the playful dodge for mouse users; on touch screens the button stays tappable.
+  if (event.pointerType && event.pointerType !== "mouse") return;
+
+  const buttonRect = noBtn.getBoundingClientRect();
+  const margin = 12;
+  const maxX = Math.max(margin, window.innerWidth - buttonRect.width - margin);
+  const maxY = Math.max(margin, window.innerHeight - buttonRect.height - margin);
+  const pointerX = event.clientX ?? window.innerWidth / 2;
+  const pointerY = event.clientY ?? window.innerHeight / 2;
+  let x;
+  let y;
+
+  // Try a few positions away from the pointer so it doesn't jump straight under it.
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    x = margin + Math.random() * Math.max(0, maxX - margin);
+    y = margin + Math.random() * Math.max(0, maxY - margin);
+    const centerX = x + buttonRect.width / 2;
+    const centerY = y + buttonRect.height / 2;
+    if (Math.hypot(centerX - pointerX, centerY - pointerY) > 140) break;
+  }
+
+  noBtn.classList.add("is-running");
+  noBtn.style.left = `${Math.round(x)}px`;
+  noBtn.style.top = `${Math.round(y)}px`;
+}
 
 yesBtn.addEventListener("click", () => {
-  question.innerHTML = "Yay, thank you! 💞️💖";
-  gif.src = "https://media.giphy.com/media/jRkaiw4ZUSHeuv1wBU/giphy.gif";
-  gif.style.transform = "scale(1.05)";
-  noBtn.style.display = "none";
-  body.classList.add("celebrating");
+  proposal.hidden = true;
+  thankYou.hidden = false;
   wrapper.classList.add("celebrate");
+  document.body.classList.add("celebrating");
+  document.title = "A Happy Little Yes 💖";
+  wrapper.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
-noBtn.addEventListener("mouseover", () => {
-  const noBtnRect = noBtn.getBoundingClientRect();
-  const maxX = Math.max(window.innerWidth - noBtnRect.width - 24, 12);
-  const maxY = Math.max(window.innerHeight - noBtnRect.height - 24, 12);
-
-  const randomX = Math.floor(Math.random() * maxX);
-  const randomY = Math.floor(Math.random() * maxY);
-
-  noBtn.style.position = "fixed";
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
-  noBtn.style.transform = "none";
-});
-
+noBtn.addEventListener("pointerenter", moveNoButton);
 noBtn.addEventListener("click", () => {
-  noBtn.style.transform = "scale(0.95)";
+  response.textContent = "Aww, no worries—I'll keep sending you love anyway! 💗";
+});
+
+window.addEventListener("resize", () => {
+  if (!noBtn.classList.contains("is-running")) return;
+  const margin = 12;
+  const rect = noBtn.getBoundingClientRect();
+  const x = Math.min(parseFloat(noBtn.style.left) || margin, window.innerWidth - rect.width - margin);
+  const y = Math.min(parseFloat(noBtn.style.top) || margin, window.innerHeight - rect.height - margin);
+  noBtn.style.left = `${Math.max(margin, x)}px`;
+  noBtn.style.top = `${Math.max(margin, y)}px`;
 });

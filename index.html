@@ -3,7 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Love Proposal</title>
+    <meta name="theme-color" content="#ffd6e6" />
+    <title>A Little Love Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -11,24 +18,42 @@
       <span>❤</span>
       <span>❤</span>
       <span>❤</span>
-      <span>❤</span>
+      <span>���</span>
       <span>❤</span>
       <span>❤</span>
     </div>
 
     <main class="wrapper">
-      <p class="tagline">For the one I adore</p>
-      <h2 class="question">Will you be mine, my pretty senior? 💖</h2>
-      <img
-        class="gif"
-        alt="Cute animated gif"
-        src="https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif"
-      />
+      <section class="proposal-content" aria-labelledby="proposal-question">
+        <p class="tagline">For the one I adore</p>
+        <h1 class="question" id="proposal-question">Will you be mine, my pretty senior? 💖</h1>
+        <img
+          class="gif"
+          alt="A cute animated character holding a heart"
+          src="https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif"
+        />
 
-      <div class="btn-group">
-        <button class="yes-btn" type="button">Yes</button>
-        <button class="no-btn" type="button">No</button>
-      </div>
+        <div class="btn-group" aria-label="Your answer">
+          <button class="yes-btn" type="button">Yes 💖</button>
+          <button class="no-btn" type="button">No</button>
+        </div>
+        <p class="response" aria-live="polite"></p>
+      </section>
+
+      <section class="thank-you" aria-labelledby="thank-you-title" hidden>
+        <p class="tagline">My heart is doing happy dances</p>
+        <h1 class="thank-you-title" id="thank-you-title">Thank you, sweetheart! 💞</h1>
+        <p class="thank-you-message">
+          You just made my whole world a little brighter. I’m so lucky to have you—here’s to
+          all the lovely moments waiting for us! 💖
+        </p>
+        <img
+          class="gif thank-you-gif"
+          alt="A cute celebration for our happy moment"
+          src="https://media.giphy.com/media/jRkaiw4ZUSHeuv1wBU/giphy.gif"
+        />
+        <p class="signature">With all my love ✨</p>
+      </section>
     </main>
 
     <script src="script.js"></script>

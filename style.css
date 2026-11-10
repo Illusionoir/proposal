@@ -5,26 +5,27 @@
 }
 
 :root {
+  color-scheme: light;
   --bg-pink-1: #ffd6e6;
   --bg-pink-2: #ffc2d1;
   --bg-rose: #ffb3c6;
-  --card: rgba(255, 255, 255, 0.38);
-  --card-border: rgba(255, 255, 255, 0.7);
+  --card: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(255, 255, 255, 0.85);
   --pink: #f06292;
   --pink-dark: #d81b60;
-  --rose: #ff7aa2;
   --white: #fffafc;
   --text: #742b50;
 }
 
 body {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
   min-height: 100vh;
-  overflow: hidden;
-  font-family: "Verdana", "Geneva", sans-serif;
+  min-height: 100svh;
+  padding: 24px 16px;
+  overflow-x: hidden;
+  font-family: "Quicksand", "Verdana", "Geneva", sans-serif;
   background: linear-gradient(135deg, var(--bg-pink-1), var(--bg-pink-2), var(--bg-rose));
   color: var(--text);
 }
@@ -36,6 +37,7 @@ body.celebrating {
 .hearts {
   position: fixed;
   inset: 0;
+  overflow: hidden;
   pointer-events: none;
   z-index: 0;
 }
@@ -59,8 +61,8 @@ body.celebrating {
 .wrapper {
   position: relative;
   z-index: 1;
-  width: min(92vw, 540px);
-  padding: 30px 26px 26px;
+  width: min(100%, 540px);
+  padding: clamp(22px, 5vw, 34px) clamp(18px, 5vw, 30px);
   border-radius: 32px;
   background: var(--card);
   border: 1px solid var(--card-border);
@@ -71,14 +73,15 @@ body.celebrating {
 }
 
 .wrapper.celebrate {
-  transform: scale(1.02);
-  box-shadow: 0 28px 60px rgba(216, 27, 96, 0.35);
+  transform: scale(1.01);
+  box-shadow: 0 28px 60px rgba(216, 27, 96, 0.3);
 }
 
 .tagline {
   margin-bottom: 8px;
   font-size: 0.76rem;
-  letter-spacing: 0.22rem;
+  letter-spacing: 0.16rem;
+  line-height: 1.5;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--pink-dark);
@@ -86,16 +89,16 @@ body.celebrating {
 
 .question {
   margin: 12px 0 18px;
-  font-size: clamp(1.7rem, 2.5vw, 2.4rem);
-  line-height: 1.35;
+  font-size: clamp(1.55rem, 5vw, 2.35rem);
+  line-height: 1.3;
   color: var(--pink-dark);
 }
 
 .gif {
   display: block;
-  width: 100%;
-  max-width: 360px;
-  height: 230px;
+  width: min(100%, 360px);
+  aspect-ratio: 36 / 23;
+  height: auto;
   object-fit: cover;
   margin: 0 auto 16px;
   border-radius: 24px;
@@ -105,21 +108,26 @@ body.celebrating {
 
 .btn-group {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   margin-top: 12px;
 }
 
 button {
-  position: absolute;
-  top: 0;
-  width: 150px;
-  height: 56px;
-  font-size: 1.08rem;
+  min-width: 130px;
+  min-height: 52px;
+  padding: 12px 22px;
+  font: inherit;
+  font-size: 1.05rem;
   font-weight: 700;
   border: none;
   border-radius: 999px;
   cursor: pointer;
+  touch-action: manipulation;
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
@@ -127,21 +135,68 @@ button:hover {
   transform: translateY(-2px);
 }
 
+button:focus-visible {
+  outline: 3px solid #8e2450;
+  outline-offset: 4px;
+}
+
 .yes-btn {
-  left: 50%;
-  transform: translateX(-110%);
   background: linear-gradient(135deg, var(--pink), var(--pink-dark));
   color: var(--white);
   box-shadow: 0 10px 20px rgba(216, 27, 96, 0.25);
 }
 
 .no-btn {
-  left: 50%;
-  transform: translateX(10%);
-  background: rgba(255, 255, 255, 0.88);
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.92);
   color: var(--pink-dark);
   border: 2px solid rgba(240, 98, 146, 0.32);
   box-shadow: 0 8px 18px rgba(216, 27, 96, 0.15);
+}
+
+.no-btn.is-running {
+  position: fixed;
+  z-index: 5;
+  margin: 0;
+}
+
+.response {
+  min-height: 1.5em;
+  margin-top: 8px;
+  color: var(--pink-dark);
+  font-weight: 700;
+}
+
+.thank-you-title {
+  margin: 8px 0 12px;
+  color: var(--pink-dark);
+  font-family: "Dancing Script", "Brush Script MT", cursive;
+  font-size: clamp(2.6rem, 10vw, 4rem);
+  line-height: 1.1;
+}
+
+.thank-you-message {
+  max-width: 410px;
+  margin: 0 auto 20px;
+  font-size: clamp(1rem, 3.8vw, 1.15rem);
+  line-height: 1.75;
+  font-weight: 600;
+}
+
+.thank-you-gif {
+  margin-bottom: 12px;
+}
+
+.signature {
+  color: var(--pink-dark);
+  font-family: "Dancing Script", "Brush Script MT", cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 @keyframes floatHeart {
@@ -158,23 +213,33 @@ button:hover {
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 420px) {
+  body {
+    padding: 16px 12px;
+  }
+
   .wrapper {
-    padding: 24px 18px 20px;
+    border-radius: 26px;
   }
 
   .btn-group {
-    height: 120px;
+    gap: 10px;
   }
 
-  .yes-btn,
-  .no-btn {
-    position: relative;
-    left: auto;
-    top: auto;
-    display: block;
-    width: 80%;
-    margin: 10px auto;
-    transform: none;
+  button {
+    min-width: 0;
+    width: 50%;
+    padding-inline: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
